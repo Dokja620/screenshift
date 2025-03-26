@@ -33,3 +33,21 @@ Using pnpm:
 ```bash
 pnpm add screenshift
 ```
+
+## Usage
+
+```scss
+// In your main style file (e.g., main.scss, styles.scss, app.scss)
+
+// Option 1: Import the combined core file
+@import "screenshift/scss";
+
+// or specify the node_modules path if necessary
+// @import 'node_modules/screenshift/src/scss/screenshift-core';
+
+// Option 2: Import parts separately (if needed)
+// Imports variables and media query overrides
+@import "screenshift/scss/responsive";
+// Imports debug tool styling using variables
+@import "screenshift/scss/core";
+```
