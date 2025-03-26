@@ -36,6 +36,10 @@ pnpm add screenshift
 
 ## Usage
 
+### 1. Import SCSS
+
+Import the core screenshift SCSS file into your main SCSS entry point. This will include the breakpoint definitions and the debug tool styles.
+
 ```scss
 // In your main style file (e.g., main.scss, styles.scss, app.scss)
 
@@ -50,4 +54,20 @@ pnpm add screenshift
 @import "screenshift/scss/responsive";
 // Imports debug tool styling using variables
 @import "screenshift/scss/core";
+```
+
+### 2. Activate Debug Tool
+
+Add the `screenshift="debug"` attribute to an HTML element (often `<body>` for global display, or a specific `<section>`) to show the overlay.
+
+```html
+<!-- Show overlay globally -->
+<body screenshift="debug">
+  <!-- Your site content -->
+</body>
+
+<!-- Or show only for a specific section -->
+<main screenshift="debug">
+  <h1>My Content</h1>
+</main>
 ```
