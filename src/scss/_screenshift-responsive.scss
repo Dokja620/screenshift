@@ -1,0 +1,30 @@
+// --- SCSS Breakpoint Map ---
+// This map defines the breakpoints. Users can override this entire map before importing.
+$screenshift-breakpoints: (
+  xs: (
+    min: 0px,
+    max: 599px,
+    label: "XS Mobile Portrait",
+  ),
+  sm: (
+    min: 600px,
+    max: 767px,
+    label: "SM Mobile Landscape/Tablet Portrait",
+  ),
+  md: (
+    min: 768px,
+    max: 991px,
+    label: "MD Tablet Landscape",
+  ),
+  lg: (
+    min: 992px,
+    max: 1199px,
+    label: "LG Laptop/Small Desktop",
+  ),
+  xl: (
+    min: 1200px,
+    max: null,
+    label: "XL Desktop+",
+  )
+  // 'max: null' signifies no upper bound,
+) !default;

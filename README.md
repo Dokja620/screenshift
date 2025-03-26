@@ -71,3 +71,5 @@ Add the `screenshift="debug"` attribute to an HTML element (often `<body>` for g
   <h1>My Content</h1>
 </main>
 ```
+
+The debug overlay will appear (usually fixed at the bottom of the screen) displaying information about the currently active breakpoint based on the viewport width.
