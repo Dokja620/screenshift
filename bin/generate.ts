@@ -82,7 +82,7 @@ async function main() {
     } catch (err) {
       console.error(
         `❌ Error creating target directory ${targetDir}:`,
-        err.message
+        (err as Error).message
       );
       process.exit(1);
     }
@@ -119,7 +119,7 @@ async function main() {
       "   Remember to update your SCSS imports to point to your local version if you modify it!"
     );
   } catch (error) {
-    console.error(`❌ An unexpected error occurred:`, error.message);
+    console.error(`❌ An unexpected error occurred:`, (error as Error).message);
     process.exit(1);
   }
 }
