@@ -1,23 +1,27 @@
 {
   "name": "screenshift",
   "version": "0.1.0",
-  "description": "A simple SCSS utility providing responsive breakpoints and a pure CSS debug overlay.",
+  "description": "A simple SCSS utility providing responsive container logic and an element-specific debug overlay.",
   "author": "Ohayo Dev and Design <axeldiaryrakotoarivao@gmail.com>",
   "license": "MIT",
   "type": "module",
+  "main": "./dist/src/index.js",
+  "module": "./dist/src/index.js",
+  "types": "./dist/src/index.d.ts",
   "bin": {
-    "screenshift": "bin/generate.ts"
+    "screenshift": "./dist/bin/generate.js"
   },
   "files": [
     "src/scss",
-    "src/index.ts",
-    "bin",
-    "breakpoints.json",
+    "dist",
     "README.md",
     "LICENSE"
   ],
   "exports": {
-    ".": "./src/index.ts",
+    ".": {
+      "types": "./dist/src/index.d.ts",
+      "import": "./dist/src/index.js"
+    },
     "./scss": "./src/scss/_screenshift-core.scss",
     "./scss/responsive": "./src/scss/_screenshift-responsive.scss",
     "./scss/*": "./src/scss/*"
@@ -28,6 +32,7 @@
     "css",
     "responsive",
     "breakpoints",
+    "container",
     "debug",
     "media-queries",
     "framework-agnostic",
@@ -36,11 +41,15 @@
     "vue"
   ],
   "scripts": {
-    "build": "echo 'No build step needed for primary SCSS usage.'",
+    "clean": "rm -rf dist",
+    "build": "bun run clean && tsc",
+    "prepublishOnly": "bun run build",
     "test": "echo 'No tests configured.'"
   },
   "devDependencies": {
-    "bun-types": "latest"
+    "bun-types": "latest",
+    "typescript": "^5.0.0",
+    "@types/node": "^20.0.0"
   },
   "homepage": "https://github.com/Dokja620/screenshift",
   "repository": {
