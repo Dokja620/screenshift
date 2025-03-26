@@ -1,11 +1,53 @@
 {
   "name": "screenshift",
-  "module": "index.ts",
+  "version": "0.1.0",
+  "description": "A simple SCSS utility providing responsive breakpoints and a pure CSS debug overlay.",
+  "author": "Ohayo Dev and Design <axeldiaryrakotoarivao@gmail.com>",
+  "license": "MIT",
   "type": "module",
-  "devDependencies": {
-    "@types/bun": "latest"
+  "bin": {
+    "screenshift": "bin/generate.ts"
   },
-  "peerDependencies": {
-    "typescript": "^5.0.0"
+  "files": [
+    "src/scss",
+    "src/index.ts",
+    "bin",
+    "breakpoints.json",
+    "README.md",
+    "LICENSE"
+  ],
+  "exports": {
+    ".": "./src/index.ts",
+    "./scss": "./src/scss/_screenshift-core.scss",
+    "./scss/responsive": "./src/scss/_screenshift-responsive.scss",
+    "./scss/*": "./src/scss/*"
+  },
+  "keywords": [
+    "scss",
+    "sass",
+    "css",
+    "responsive",
+    "breakpoints",
+    "debug",
+    "media-queries",
+    "framework-agnostic",
+    "svelte",
+    "react",
+    "vue"
+  ],
+  "scripts": {
+    "build": "echo 'No build step needed for primary SCSS usage.'",
+    "test": "echo 'No tests configured.'"
+  },
+  "devDependencies": {
+    "bun-types": "latest"
+  },
+  "homepage": "https://github.com/Dokja620/screenshift",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Dokja620/screenshift.git"
+  },
+  "bugs": {
+    "url": "https://github.com/Dokja620/screenshift/issues"
   }
 }
