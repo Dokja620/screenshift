@@ -20,3 +20,16 @@ Using Bun:
 ```bash
 bun add screenshift
 ```
+
+Using npm:
+
+```bash
+npm install screenshift
+
+```
+
+Using pnpm:
+
+```bash
+pnpm add screenshift
+```
