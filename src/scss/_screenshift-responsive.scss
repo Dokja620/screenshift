@@ -1,54 +1,60 @@
 // --- SCSS Breakpoint Map ---
-// This map defines the breakpoints. Users can override this entire map before importing.
+// This map defines the breakpoints with a more intuitive structure
 $screenshift-breakpoints: (
   xs: (
     min: 0px,
     max: 475px,
+    name: "xs",
     label: "XS Mobile",
     container-max-width: 100%,
-    padding: true,
   ),
   sm: (
     min: 476px,
     max: 640px,
+    name: "sm",
     label: "SM Small Mobile",
     container-max-width: 475px,
   ),
   md: (
     min: 641px,
     max: 768px,
+    name: "md",
     label: "MD Mobile Landscape",
     container-max-width: 640px,
   ),
   lg: (
     min: 769px,
     max: 1024px,
+    name: "lg",
     label: "LG Tablet",
     container-max-width: 768px,
   ),
   xl: (
     min: 1025px,
     max: 1280px,
+    name: "xl",
     label: "XL Small Desktop",
     container-max-width: 1024px,
   ),
   xl2: (
     min: 1281px,
     max: 1325px,
+    name: "xl2",
     label: "XL2 Medium Desktop",
     container-max-width: 1200px,
   ),
   xxl: (
     min: 1326px,
     max: 1536px,
+    name: "xxl",
     label: "XXL Large Desktop",
     container-max-width: 1280px,
   ),
   xxxl: (
     min: 1537px,
     max: null,
+    name: "xxxl",
     label: "XXXL Extra Large Desktop",
     container-max-width: 90%,
-  )
-  // 'max: null' signifies no upper bound,
+  ),
 ) !default;

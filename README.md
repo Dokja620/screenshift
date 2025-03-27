@@ -1,75 +1,146 @@
 # Screenshift 📱 💻 🖥️
 
-<!-- [![npm version](https://img.shields.io/npm/v/screenshift.svg)](https://www.npmjs.com/package/screenshift) -->
-
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
 A lightweight, framework-agnostic SCSS utility that provides responsive breakpoints and a pure CSS debug overlay to visualize the current breakpoint.
 
-## Problem Solved
+## 🌟 Features
 
-`screenshift` makes it easier to manage responsive styles by:
+- 🚀 Lightweight and framework-agnostic
+- 📐 Predefined, customizable responsive breakpoints
+- 🔍 Pure CSS debug overlay
+- 🛠️ Easy configuration and integration
+- 💻 Works with modern web projects
 
-1.  Providing configurable SCSS variables/maps for common breakpoints.
-2.  Offering a simple, pure CSS debug tool (activated via an HTML attribute) that displays the current breakpoint name, dimensions, and label without requiring JavaScript.
+## 📦 Installation
 
-## Installation
-
-Using Bun:
+Choose your preferred package manager:
 
 ```bash
+# Bun
 bun add screenshift
-```
 
-Using npm:
-
-```bash
+# npm
 npm install screenshift
 
-```
-
-Using pnpm:
-
-```bash
+# pnpm
 pnpm add screenshift
+
+# Yarn
+yarn add screenshift
 ```
 
-## Usage
+## 🔧 Breakpoints
 
-### 1. Import SCSS
+Screenshift provides a comprehensive set of responsive breakpoints:
 
-Import the core screenshift SCSS file into your main SCSS entry point. This will include the breakpoint definitions and the debug tool styles.
+| Breakpoint | Min Width | Max Width | Label                    | Container Max Width |
+| ---------- | --------- | --------- | ------------------------ | ------------------- |
+| xs         | 0px       | 475px     | XS Mobile                | 100%                |
+| sm         | 476px     | 640px     | SM Small Mobile          | 475px               |
+| md         | 641px     | 768px     | MD Mobile Landscape      | 640px               |
+| lg         | 769px     | 1024px    | LG Tablet                | 768px               |
+| xl         | 1025px    | 1280px    | XL Small Desktop         | 1024px              |
+| xl2        | 1281px    | 1325px    | XL2 Medium Desktop       | 1200px              |
+| xxl        | 1326px    | 1536px    | XXL Large Desktop        | 1280px              |
+| xxxl       | 1537px    | ∞         | XXXL Extra Large Desktop | 90%                 |
+
+## 💡 Usage
+
+### 1. Import and Use in SCSS
+
+#### Responsive Media Queries
 
 ```scss
-// In your main style file (e.g., main.scss, styles.scss, app.scss)
+@use "../shared";
+@use "screenshift/scss" as *;
 
-// Option 1: Import the combined core file
-@import "screenshift/scss";
+// Responsive styles for #featured element
+@media (min-width: $screenshift-xxxl) {
+  #featured {
+    background: red;
+  }
+}
 
-// or specify the node_modules path if necessary
-// @import 'node_modules/screenshift/src/scss/screenshift-core';
+@media (min-width: $screenshift-md) {
+  #featured {
+    background: yellow;
+  }
+}
 
-// Option 2: Import parts separately (if needed)
-// Imports variables and media query overrides
-@import "screenshift/scss/responsive";
-// Imports debug tool styling using variables
-@import "screenshift/scss/core";
+#featured {
+  .content {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: shared.$spacing-lg;
+    margin-top: shared.$spacing-xl;
+  }
+}
 ```
 
-### 2. Activate Debug Tool
+#### Global Styles
 
-Add the `screenshift="debug"` attribute to an HTML element (often `<body>` for global display, or a specific `<section>`) to show the overlay.
+```scss
+@use "screenshift/scss";
+
+// Layout imports
+@use "./layout";
+@use "./home";
+@use "./about";
+@use "./shared";
+
+// Main content styling
+main {
+  display: grid;
+  gap: calc(shared.$spacing-xxl * 2);
+  padding-bottom: shared.$spacing-md;
+}
+```
+
+### 2. Debug Mode
 
 ```html
-<!-- Show overlay globally -->
+<!-- Global or section-specific debug overlay -->
 <body screenshift="debug">
   <!-- Your site content -->
 </body>
-
-<!-- Or show only for a specific section -->
-<main screenshift="debug">
-  <h1>My Content</h1>
-</main>
 ```
 
-The debug overlay will appear (usually fixed at the bottom of the screen) displaying information about the currently active breakpoint based on the viewport width.
+## 🎨 Media Query Helpers
+
+Use predefined SCSS variables for responsive design:
+
+```scss
+@use "screenshift/scss" as *;
+
+.responsive-component {
+  @media (max-width: $screenshift-md) {
+    // Styles for medium and smaller screens
+    display: block;
+  }
+
+  @media (min-width: $screenshift-lg) {
+    // Styles for large and larger screens
+    display: flex;
+  }
+}
+```
+
+## 🛠️ Configuration Options
+
+- Customize spacing: `$screenshift-spacing-*`
+- Change debug color: `$screenshift-debug-color`
+
+## 🤝 Contributing
+
+Contributions are welcome! Please feel free to submit a Pull Request.
+
+## 📄 License
+
+MIT License
+
+## 🚀 Compatibility
+
+- SCSS
+- Modern browsers
+- Works with any framework (React, Vue, Angular, etc.)

@@ -4,127 +4,74 @@ $screenshift-spacing-xs: 4px !default;
 $screenshift-spacing-sm: 8px !default;
 $screenshift-spacing-md: 12px !default;
 $screenshift-spacing-lg: 16px !default;
-$screenshift-spacing: $screenshift-spacing-sm !default; // Default general spacing
+$screenshift-spacing: $screenshift-spacing-sm !default;
 $screenshift-debug-color: red !default;
 
-// Extract all breakpoint values and labels
-$bp-xxxl-min: map-get(map-get($screenshift-breakpoints, xxxl), min);
-$bp-xxl-max: map-get(map-get($screenshift-breakpoints, xxl), max);
-$bp-xl2-max: map-get(map-get($screenshift-breakpoints, xl2), max);
-$bp-xl-max: map-get(map-get($screenshift-breakpoints, xl), max);
-$bp-lg-max: map-get(map-get($screenshift-breakpoints, lg), max);
-$bp-md-max: map-get(map-get($screenshift-breakpoints, md), max);
-$bp-sm-max: map-get(map-get($screenshift-breakpoints, sm), max);
-$bp-xs-max: map-get(map-get($screenshift-breakpoints, xs), max);
+// Simplified breakpoint extraction
+@function screenshift-bp($breakpoint, $key) {
+  @return map-get(map-get($screenshift-breakpoints, $breakpoint), $key);
+}
 
-$label-xxxl: map-get(map-get($screenshift-breakpoints, xxxl), label);
-$label-xxl: map-get(map-get($screenshift-breakpoints, xxl), label);
-$label-xl2: map-get(map-get($screenshift-breakpoints, xl2), label);
-$label-xl: map-get(map-get($screenshift-breakpoints, xl), label);
-$label-lg: map-get(map-get($screenshift-breakpoints, lg), label);
-$label-md: map-get(map-get($screenshift-breakpoints, md), label);
-$label-sm: map-get(map-get($screenshift-breakpoints, sm), label);
-$label-xs: map-get(map-get($screenshift-breakpoints, xs), label);
-
-// Container max-width extraction
-$container-max-width-xxxl: map-get(
-  map-get($screenshift-breakpoints, xxxl),
-  container-max-width
-);
-$container-max-width-xxl: map-get(
-  map-get($screenshift-breakpoints, xxl),
-  container-max-width
-);
-$container-max-width-xl2: map-get(
-  map-get($screenshift-breakpoints, xl2),
-  container-max-width
-);
-$container-max-width-xl: map-get(
-  map-get($screenshift-breakpoints, xl),
-  container-max-width
-);
-$container-max-width-lg: map-get(
-  map-get($screenshift-breakpoints, lg),
-  container-max-width
-);
-$container-max-width-md: map-get(
-  map-get($screenshift-breakpoints, md),
-  container-max-width
-);
-$container-max-width-sm: map-get(
-  map-get($screenshift-breakpoints, sm),
-  container-max-width
-);
-$container-max-width-xs: map-get(
-  map-get($screenshift-breakpoints, xs),
-  container-max-width
-);
+// Define breakpoint variables for easy media query usage
+$screenshift-xs: screenshift-bp(xs, max);
+$screenshift-sm: screenshift-bp(sm, max);
+$screenshift-md: screenshift-bp(md, max);
+$screenshift-lg: screenshift-bp(lg, max);
+$screenshift-xl: screenshift-bp(xl, max);
+$screenshift-xl2: screenshift-bp(xl2, max);
+$screenshift-xxl: screenshift-bp(xxl, max);
+$screenshift-xxxl: screenshift-bp(xxxl, min);
 
 [screenshift] {
   width: 100%;
   margin-left: auto;
   margin-right: auto;
-
-  // --- Define Container Breakpoints & Max Widths ---
-  // DEFAULT (Largest / Desktop First)
-  max-width: $container-max-width-xxxl;
+  max-width: screenshift-bp(xxxl, container-max-width);
   padding-left: 0;
   padding-right: 0;
 
-  // Viewport maximum <= XXXL
-  @media (min-width: 1599px) {
-    max-width: 1600px;
+  @media (max-width: $screenshift-xxl) {
+    max-width: screenshift-bp(xl2, container-max-width);
   }
 
-  // Viewport <= XL2
-  @media (max-width: calc(#{$bp-xxl-max} - 1px)) {
-    max-width: $container-max-width-xl2;
+  @media (max-width: $screenshift-xl2) {
+    max-width: screenshift-bp(xl, container-max-width);
   }
 
-  // Viewport <= XL
-  @media (max-width: calc(#{$bp-xl2-max} - 1px)) {
-    max-width: $container-max-width-xl;
+  @media (max-width: $screenshift-xl) {
+    max-width: screenshift-bp(lg, container-max-width);
   }
 
-  // Viewport <= LG
-  @media (max-width: calc(#{$bp-xl-max} - 1px)) {
-    max-width: $container-max-width-lg;
+  @media (max-width: $screenshift-lg) {
+    max-width: screenshift-bp(md, container-max-width);
   }
 
-  // Viewport <= MD
-  @media (max-width: calc(#{$bp-lg-max} - 1px)) {
-    max-width: $container-max-width-md;
-  }
-
-  // Viewport <= SM
-  @media (max-width: calc(#{$bp-md-max} - 1px)) {
-    max-width: $container-max-width-sm;
+  @media (max-width: $screenshift-md) {
+    max-width: screenshift-bp(sm, container-max-width);
     padding-left: $screenshift-spacing-lg;
     padding-right: $screenshift-spacing-lg;
   }
 
-  // Viewport <= XS
-  @media (max-width: calc(#{$bp-sm-max} - 1px)) {
-    max-width: $container-max-width-xs;
+  @media (max-width: $screenshift-sm) {
+    max-width: screenshift-bp(xs, container-max-width);
     padding-left: $screenshift-spacing-lg;
     padding-right: $screenshift-spacing-lg;
   }
 
-  // Smallest Viewport
-  @media (max-width: $bp-xs-max) {
+  @media (max-width: $screenshift-xs) {
     max-width: 100%;
     padding-left: $screenshift-spacing-lg;
     padding-right: $screenshift-spacing-lg;
   }
 }
 
-// --- Visual Debug Styling (Outline & Label) ---
-// Applied ONLY when the attribute value is exactly "debug"
+// --- Visual Debug Styling ---
 [screenshift="debug"] {
   position: relative;
   outline: 2px dashed rgba($screenshift-debug-color, 0.5);
   border-radius: $screenshift-spacing-md;
   outline-offset: 10px;
+
   &::after {
     display: block;
     content: "";
@@ -136,70 +83,79 @@ $container-max-width-xs: map-get(
     padding: $screenshift-spacing $screenshift-spacing-md;
     background: $screenshift-debug-color;
     border-radius: $screenshift-spacing-lg;
-    z-index: 99998; // High, but allow for other overlays if needed
+    z-index: 99998;
     pointer-events: none;
   }
 
   // XXXL Viewport
-  @media (min-width: $bp-xxxl-min) {
+  @media (min-width: screenshift-bp(xxxl, min)) {
     &::after {
-      content: "max-width: #{$container-max-width-xxxl} / #{$label-xxxl}";
+      content: "xxxl - min:" + screenshift-bp(xxxl, min) + " - " +
+        screenshift-bp(xxxl, label) + " - max-width:" +
+        screenshift-bp(xxxl, container-max-width);
     }
   }
 
   // XXL Viewport
-  @media (max-width: calc(#{$bp-xxxl-min} - 1px)) {
+  @media (max-width: screenshift-bp(xxxl, min)) and (min-width: screenshift-bp(xxl, min)) {
     &::after {
-      content: "#{$bp-xxxl-min} / #{$label-xxl} | max-width: #{$container-max-width-xxl}";
+      content: "xxl - min:" + screenshift-bp(xxl, min) + " max:" +
+        screenshift-bp(xxl, max) + " - " + screenshift-bp(xxl, label) +
+        " - max-width:" + screenshift-bp(xxl, container-max-width);
     }
   }
 
   // XL2 Viewport
-  @media (max-width: calc(#{$bp-xxl-max} - 1px)) {
+  @media (max-width: screenshift-bp(xxl, max)) and (min-width: screenshift-bp(xl2, min)) {
     &::after {
-      content: "max-width: #{$container-max-width-xl2} / #{$label-xl2}";
+      content: "xl2 - min:" + screenshift-bp(xl2, min) + " max:" +
+        screenshift-bp(xl2, max) + " - " + screenshift-bp(xl2, label) +
+        " - max-width:" + screenshift-bp(xl2, container-max-width);
     }
   }
 
   // XL Viewport
-  @media (max-width: calc(#{$bp-xl2-max} - 1px)) {
+  @media (max-width: screenshift-bp(xl2, max)) and (min-width: screenshift-bp(xl, min)) {
     &::after {
-      content: "max-width: #{$container-max-width-xl} / #{$label-xl}";
+      content: "xl - min:" + screenshift-bp(xl, min) + " max:" +
+        screenshift-bp(xl, max) + " - " + screenshift-bp(xl, label) +
+        " - max-width:" + screenshift-bp(xl, container-max-width);
     }
   }
 
   // LG Viewport
-  @media (max-width: calc(#{$bp-xl-max} - 1px)) {
+  @media (max-width: screenshift-bp(xl, max)) and (min-width: screenshift-bp(lg, min)) {
     &::after {
-      content: "max-width: #{$container-max-width-lg} / #{$label-lg}";
+      content: "lg - min:" + screenshift-bp(lg, min) + " max:" +
+        screenshift-bp(lg, max) + " - " + screenshift-bp(lg, label) +
+        " - max-width:" + screenshift-bp(lg, container-max-width);
     }
   }
 
   // MD Viewport
-  @media (max-width: calc(#{$bp-lg-max} - 1px)) {
+  @media (max-width: screenshift-bp(lg, max)) and (min-width: screenshift-bp(md, min)) {
     &::after {
-      content: "max-width: #{$container-max-width-md} / #{$label-md}";
+      content: "md - min:" + screenshift-bp(md, min) + " max:" +
+        screenshift-bp(md, max) + " - " + screenshift-bp(md, label) +
+        " - max-width:" + screenshift-bp(md, container-max-width);
     }
   }
 
   // SM Viewport
-  @media (max-width: calc(#{$bp-md-max} - 1px)) {
+  @media (max-width: screenshift-bp(md, max)) and (min-width: screenshift-bp(sm, min)) {
     &::after {
-      content: "max-width: #{$container-max-width-sm} / #{$label-sm}";
+      content: "sm - min:" + screenshift-bp(sm, min) + " max:" +
+        screenshift-bp(sm, max) + " - " + screenshift-bp(sm, label) +
+        " - max-width:" + screenshift-bp(sm, container-max-width);
     }
   }
 
   // XS Viewport
-  @media (max-width: calc(#{$bp-sm-max} - 1px)) {
+  @media (max-width: screenshift-bp(sm, max)) and (min-width: screenshift-bp(xs, min)) {
     &::after {
-      content: "max-width: #{$container-max-width-xs} / #{$label-xs}";
-    }
-  }
-
-  // Smallest Viewport
-  @media (max-width: $bp-xs-max) {
-    &::after {
-      content: "width: 100% / #{$label-xs}";
+      content: "xs - min:" + screenshift-bp(xs, min) + " max:" +
+        screenshift-bp(xs, max) + " - " + screenshift-bp(xs, label) +
+        " - max-width:" + screenshift-bp(xs, container-max-width);
     }
   }
 }
