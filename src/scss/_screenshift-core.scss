@@ -1,66 +1,118 @@
-// 1. Import the responsive variables (though not used for debug display anymore,
-//    they might be useful for users, so keep the import).
 @import "screenshift-responsive";
 
-// --- Variables for Container/Debug Styling (Define or use existing) ---
 $screenshift-spacing-xs: 4px !default;
 $screenshift-spacing-sm: 8px !default;
 $screenshift-spacing-md: 12px !default;
 $screenshift-spacing-lg: 16px !default;
 $screenshift-spacing: $screenshift-spacing-sm !default; // Default general spacing
-$screenshift-debug-color: #dc3545 !default; // Default debug color (Bootstrap danger red)
+$screenshift-debug-color: red !default;
 
-// --- Responsive Container Logic ---
-// Applied when the [screenshift] attribute is present (including [screenshift="debug"])
+// Extract all breakpoint values and labels
+$bp-xxxl-min: map-get(map-get($screenshift-breakpoints, xxxl), min);
+$bp-xxl-max: map-get(map-get($screenshift-breakpoints, xxl), max);
+$bp-xl2-max: map-get(map-get($screenshift-breakpoints, xl2), max);
+$bp-xl-max: map-get(map-get($screenshift-breakpoints, xl), max);
+$bp-lg-max: map-get(map-get($screenshift-breakpoints, lg), max);
+$bp-md-max: map-get(map-get($screenshift-breakpoints, md), max);
+$bp-sm-max: map-get(map-get($screenshift-breakpoints, sm), max);
+$bp-xs-max: map-get(map-get($screenshift-breakpoints, xs), max);
+
+$label-xxxl: map-get(map-get($screenshift-breakpoints, xxxl), label);
+$label-xxl: map-get(map-get($screenshift-breakpoints, xxl), label);
+$label-xl2: map-get(map-get($screenshift-breakpoints, xl2), label);
+$label-xl: map-get(map-get($screenshift-breakpoints, xl), label);
+$label-lg: map-get(map-get($screenshift-breakpoints, lg), label);
+$label-md: map-get(map-get($screenshift-breakpoints, md), label);
+$label-sm: map-get(map-get($screenshift-breakpoints, sm), label);
+$label-xs: map-get(map-get($screenshift-breakpoints, xs), label);
+
+// Container max-width extraction
+$container-max-width-xxxl: map-get(
+  map-get($screenshift-breakpoints, xxxl),
+  container-max-width
+);
+$container-max-width-xxl: map-get(
+  map-get($screenshift-breakpoints, xxl),
+  container-max-width
+);
+$container-max-width-xl2: map-get(
+  map-get($screenshift-breakpoints, xl2),
+  container-max-width
+);
+$container-max-width-xl: map-get(
+  map-get($screenshift-breakpoints, xl),
+  container-max-width
+);
+$container-max-width-lg: map-get(
+  map-get($screenshift-breakpoints, lg),
+  container-max-width
+);
+$container-max-width-md: map-get(
+  map-get($screenshift-breakpoints, md),
+  container-max-width
+);
+$container-max-width-sm: map-get(
+  map-get($screenshift-breakpoints, sm),
+  container-max-width
+);
+$container-max-width-xs: map-get(
+  map-get($screenshift-breakpoints, xs),
+  container-max-width
+);
+
 [screenshift] {
-  // --- Basic Container Styles ---
-  display: block; // Ensure it behaves like a block
-  box-sizing: border-box; // Consistent sizing
-  width: 100%; // Start at full width
+  width: 100%;
   margin-left: auto;
   margin-right: auto;
 
   // --- Define Container Breakpoints & Max Widths ---
   // DEFAULT (Largest / Desktop First)
-  max-width: 1536px;
-  padding-left: 0; // No padding on largest sizes by default
+  max-width: $container-max-width-xxxl;
+  padding-left: 0;
   padding-right: 0;
 
-  // Media Query Overrides (using max-width)
-  // Based on the container sizes from your previous example
-
-  // Applies when VIEWPORT <= 1535px
-  @media (max-width: 1535px) {
-    max-width: 1280px;
+  // Viewport maximum <= XXXL
+  @media (min-width: 1599px) {
+    max-width: 1600px;
   }
 
-  // Applies when VIEWPORT <= 1279px
-  @media (max-width: 1279px) {
-    max-width: 1024px;
+  // Viewport <= XL2
+  @media (max-width: calc(#{$bp-xxl-max} - 1px)) {
+    max-width: $container-max-width-xl2;
   }
 
-  // Applies when VIEWPORT <= 1023px
-  @media (max-width: 1023px) {
-    max-width: 768px;
+  // Viewport <= XL
+  @media (max-width: calc(#{$bp-xl2-max} - 1px)) {
+    max-width: $container-max-width-xl;
   }
 
-  // Applies when VIEWPORT <= 767px
-  @media (max-width: 767px) {
-    max-width: 640px;
-    padding-left: $screenshift-spacing-lg; // Add padding from here down
-    padding-right: $screenshift-spacing-lg;
+  // Viewport <= LG
+  @media (max-width: calc(#{$bp-xl-max} - 1px)) {
+    max-width: $container-max-width-lg;
   }
 
-  // Applies when VIEWPORT <= 639px
-  @media (max-width: 639px) {
-    max-width: 475px;
+  // Viewport <= MD
+  @media (max-width: calc(#{$bp-lg-max} - 1px)) {
+    max-width: $container-max-width-md;
+  }
+
+  // Viewport <= SM
+  @media (max-width: calc(#{$bp-md-max} - 1px)) {
+    max-width: $container-max-width-sm;
     padding-left: $screenshift-spacing-lg;
     padding-right: $screenshift-spacing-lg;
   }
 
-  // Applies when VIEWPORT <= 474px
-  @media (max-width: 474px) {
-    max-width: 100%; // No max-width, use full width
+  // Viewport <= XS
+  @media (max-width: calc(#{$bp-sm-max} - 1px)) {
+    max-width: $container-max-width-xs;
+    padding-left: $screenshift-spacing-lg;
+    padding-right: $screenshift-spacing-lg;
+  }
+
+  // Smallest Viewport
+  @media (max-width: $bp-xs-max) {
+    max-width: 100%;
     padding-left: $screenshift-spacing-lg;
     padding-right: $screenshift-spacing-lg;
   }
@@ -69,86 +121,85 @@ $screenshift-debug-color: #dc3545 !default; // Default debug color (Bootstrap da
 // --- Visual Debug Styling (Outline & Label) ---
 // Applied ONLY when the attribute value is exactly "debug"
 [screenshift="debug"] {
-  // --- 1. Debug Outline ---
-  position: relative; // Needed for positioning the ::after pseudo-element
-  outline: 2px dashed rgba($screenshift-debug-color, 0.6); // Use rgba for transparency
+  position: relative;
+  outline: 2px dashed rgba($screenshift-debug-color, 0.5);
+  border-radius: $screenshift-spacing-md;
   outline-offset: 10px;
-  // Optional: Add border-radius matching container?
-  // border-radius: $screenshift-spacing-xs;
-
-  // --- 2. Base Styling for Debug ::after Label ---
   &::after {
-    display: block; // Use block or inline-block
-    position: absolute; // Position relative to the container element
-    top: 0;
-    // Position above the element and its outline
-    $total-vertical-offset: $screenshift-spacing-xs + 2px;
-    left: $screenshift-spacing-md + 10px; // Nudge it past the outline offset
-    transform: translateY(calc(-100% - #{$total-vertical-offset}));
-
-    // Visuals
-    content: "..."; // Base content (overwritten by media queries)
-    padding: $screenshift-spacing-xs $screenshift-spacing-md;
-    background: $screenshift-debug-color; // Use the debug color variable
+    display: block;
+    content: "";
+    position: absolute;
+    transform: translate(-20px, 25px);
     color: white;
-    border-radius: $screenshift-spacing-xs;
-    font-size: 10px;
-    font-family: sans-serif;
+    font-size: 16px;
     font-weight: bold;
-    white-space: nowrap;
+    padding: $screenshift-spacing $screenshift-spacing-md;
+    background: $screenshift-debug-color;
+    border-radius: $screenshift-spacing-lg;
     z-index: 99998; // High, but allow for other overlays if needed
     pointer-events: none;
   }
 
-  // --- 3. Update Debug ::after Content within Media Queries ---
-  // These media queries MIRROR the container logic, but only set the content string.
-
-  // DEFAULT STATE (Largest viewport, largest container)
-  @media (min-width: 1536px) {
+  // XXXL Viewport
+  @media (min-width: $bp-xxxl-min) {
     &::after {
-      content: "Container state: >=1536px (1536px max-width)";
+      content: "max-width: #{$container-max-width-xxxl} / #{$label-xxxl}";
     }
   }
 
-  // Viewport <= 1535px (Container max-width is 1280px)
-  @media (max-width: 1535px) {
+  // XXL Viewport
+  @media (max-width: calc(#{$bp-xxxl-min} - 1px)) {
     &::after {
-      content: "Container state: <=1535px (1280px max-width)";
+      content: "#{$bp-xxxl-min} / #{$label-xxl} | max-width: #{$container-max-width-xxl}";
     }
   }
 
-  // Viewport <= 1279px (Container max-width is 1024px)
-  @media (max-width: 1279px) {
+  // XL2 Viewport
+  @media (max-width: calc(#{$bp-xxl-max} - 1px)) {
     &::after {
-      content: "Container state: <=1279px (1024px max-width)";
+      content: "max-width: #{$container-max-width-xl2} / #{$label-xl2}";
     }
   }
 
-  // Viewport <= 1023px (Container max-width is 768px)
-  @media (max-width: 1023px) {
+  // XL Viewport
+  @media (max-width: calc(#{$bp-xl2-max} - 1px)) {
     &::after {
-      content: "Container state: <=1023px (768px max-width)";
+      content: "max-width: #{$container-max-width-xl} / #{$label-xl}";
     }
   }
 
-  // Viewport <= 767px (Container max-width is 640px)
-  @media (max-width: 767px) {
+  // LG Viewport
+  @media (max-width: calc(#{$bp-xl-max} - 1px)) {
     &::after {
-      content: "Container state: <=767px (640px max-width)";
+      content: "max-width: #{$container-max-width-lg} / #{$label-lg}";
     }
   }
 
-  // Viewport <= 639px (Container max-width is 475px)
-  @media (max-width: 639px) {
+  // MD Viewport
+  @media (max-width: calc(#{$bp-lg-max} - 1px)) {
     &::after {
-      content: "Container state: <=639px (475px max-width)";
+      content: "max-width: #{$container-max-width-md} / #{$label-md}";
     }
   }
 
-  // Viewport <= 474px (Container max-width is 100%)
-  @media (max-width: 474px) {
+  // SM Viewport
+  @media (max-width: calc(#{$bp-md-max} - 1px)) {
     &::after {
-      content: "Container state: <=474px (100% width)";
+      content: "max-width: #{$container-max-width-sm} / #{$label-sm}";
+    }
+  }
+
+  // XS Viewport
+  @media (max-width: calc(#{$bp-sm-max} - 1px)) {
+    &::after {
+      content: "max-width: #{$container-max-width-xs} / #{$label-xs}";
+    }
+  }
+
+  // Smallest Viewport
+  @media (max-width: $bp-xs-max) {
+    &::after {
+      content: "width: 100% / #{$label-xs}";
     }
   }
 }
