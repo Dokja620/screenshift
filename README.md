@@ -47,7 +47,47 @@ Screenshift provides a comprehensive set of responsive breakpoints:
 
 ## 💡 Usage
 
-### 1. Import and Use in SCSS
+### 1. Apply ScreenShift
+
+#### Global Styles
+
+```scss
+// global.scss or main.scss or app.scss
+// paste on top
+@use "screenshift/scss";
+```
+
+Then just add `screenshift` attribute to where you want to apply it :
+
+```html
+<!-- Globally -->
+<body screenshift>
+  <!-- Your site content -->
+</body>
+
+<!-- Or only for a specific section -->
+<section id="featured" screenshift>
+  <h1>My Content</h1>
+</section>
+```
+
+### 2. Debug mode
+
+To show the debug overlay just add `="debug"` to `screenshift` :
+
+```html
+<!-- Global debug overlay -->
+<body screenshift="debug">
+  <!-- Your site content -->
+</body>
+
+<!-- Or show only for a specific section -->
+<section id="featured" screenshift="debug">
+  <h1>My Content</h1>
+</section>
+```
+
+### 3. Import and Use in SCSS
 
 #### Responsive Media Queries
 
@@ -69,41 +109,8 @@ Screenshift provides a comprehensive set of responsive breakpoints:
 }
 
 #featured {
-  .content {
-    display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    gap: shared.$spacing-lg;
-    margin-top: shared.$spacing-xl;
-  }
+  background: purple;
 }
-```
-
-#### Global Styles
-
-```scss
-@use "screenshift/scss";
-
-// Layout imports
-@use "./layout";
-@use "./home";
-@use "./about";
-@use "./shared";
-
-// Main content styling
-main {
-  display: grid;
-  gap: calc(shared.$spacing-xxl * 2);
-  padding-bottom: shared.$spacing-md;
-}
-```
-
-### 2. Debug Mode
-
-```html
-<!-- Global or section-specific debug overlay -->
-<body screenshift="debug">
-  <!-- Your site content -->
-</body>
 ```
 
 ## 🎨 Media Query Helpers
