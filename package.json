@@ -1,6 +1,6 @@
 {
   "name": "screenshift",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "A simple SCSS utility providing responsive container logic and an element-specific debug overlay.",
   "author": "Ohayo Dev and Design <axeldiaryrakotoarivao@gmail.com>",
   "license": "MIT",
