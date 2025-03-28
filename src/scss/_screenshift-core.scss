@@ -9,7 +9,7 @@ $screenshift-debug-color: red !default;
 
 // Simplified breakpoint extraction
 @function screenshift-bp($breakpoint, $key) {
-  @return map.get(map.get($screenshift-breakpoints, $breakpoint), $key);
+  @return map-get(map-get($screenshift-breakpoints, $breakpoint), $key);
 }
 
 // Define breakpoint variables for easy media query usage
