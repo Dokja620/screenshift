@@ -1,4 +1,4 @@
-@import "screenshift-responsive";
+@use "screenshift-responsive";
 
 $screenshift-spacing-xs: 4px !default;
 $screenshift-spacing-sm: 8px !default;
@@ -9,7 +9,7 @@ $screenshift-debug-color: red !default;
 
 // Simplified breakpoint extraction
 @function screenshift-bp($breakpoint, $key) {
-  @return map-get(map-get($screenshift-breakpoints, $breakpoint), $key);
+  @return map.get(map.get($screenshift-breakpoints, $breakpoint), $key);
 }
 
 // Define breakpoint variables for easy media query usage
@@ -22,7 +22,7 @@ $screenshift-xl2: screenshift-bp(xl2, max);
 $screenshift-xxl: screenshift-bp(xxl, max);
 $screenshift-xxxl: screenshift-bp(xxxl, min);
 
-[screenshift] {
+[data-screenshift] {
   width: 100%;
   margin-left: auto;
   margin-right: auto;
@@ -66,7 +66,7 @@ $screenshift-xxxl: screenshift-bp(xxxl, min);
 }
 
 // --- Visual Debug Styling ---
-[screenshift="debug"] {
+[data-screenshift="debug"] {
   position: relative;
   outline: 2px dashed rgba($screenshift-debug-color, 0.5);
   border-radius: $screenshift-spacing-md;
