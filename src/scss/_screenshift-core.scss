@@ -1,3 +1,4 @@
+@use "sass:map";
 @use "screenshift-responsive" as *;
 
 $screenshift-spacing-xs: 4px !default;
@@ -9,9 +10,9 @@ $screenshift-debug-color: red !default;
 
 // Simplified breakpoint extraction
 @function screenshift-bp($breakpoint, $key) {
-  @return map-get(map-get($screenshift-breakpoints, $breakpoint), $key);
+  $breakpoint-map: map.get($screenshift-breakpoints, $breakpoint);
+  @return map.get($breakpoint-map, $key);
 }
-
 // Define breakpoint variables for easy media query usage
 $screenshift-xs: screenshift-bp(xs, max);
 $screenshift-sm: screenshift-bp(sm, max);
