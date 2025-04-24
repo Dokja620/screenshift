@@ -34,7 +34,18 @@
   border-radius: $spacing-xs;
   &::after {
     position: absolute;
-    transform: translate(-20px, 25px);
+    bottom: -60px;
+    left: 0;
+    padding: 6px 12px;
+    background: red;
+    border-radius: 12px;
+    color: white;
+    font-weight: bold;
+  }
+  &::before {
+    position: absolute;
+    bottom: -110px;
+    left: 0;
     padding: 6px 12px;
     background: red;
     border-radius: 12px;
@@ -44,7 +55,10 @@
   @each $name, $value in $breakpoints {
     @media (max-width: $value) {
       &::after {
-        content: "#{$name} | max #{$value}";
+        content: "$#{$name}";
+      }
+      &::before {
+        content: "max-width : #{$value}";
       }
     }
   }
