@@ -1,24 +1,15 @@
 @use "sass:map";
 
 @use "./screenshift-breakpoints" as *;
+@use "./just-vars" as *;
 
-/*2xl*/
-@media (max-width: map.get($breakpoints, "desktop-xl")) {
-  .container {
-    max-width: map.get($max-widths, "desktop-xl");
-    &.tool::after {
-      content: "max : 1536px / 2xl";
-    }
-  }
-}
-
+//
 [data-screenshift] {
   width: 100%;
   margin-left: auto;
   margin-right: auto;
   padding-left: 0;
   padding-right: 0;
-  background: blue;
   max-width: map.get($max-widths, "desktop-xl");
 
   @each $bp-name, $bp-value in $breakpoints {
@@ -27,6 +18,33 @@
         @if $bp-name == $mx-name {
           max-width: $mx-value;
         }
+      }
+      @each $sp-name, $sp-value in $spaces {
+        @if $bp-name == $sp-name {
+          padding: 0 $sp-value;
+        }
+      }
+    }
+  }
+}
+
+[data-screenshift="debug"] {
+  position: relative;
+  outline: 2px dashed color-mix(in srgb, red, transparent 50%);
+  border-radius: $spacing-xs;
+  &::after {
+    position: absolute;
+    transform: translate(-20px, 25px);
+    padding: 6px 12px;
+    background: red;
+    border-radius: 12px;
+    color: white;
+    font-weight: bold;
+  }
+  @each $name, $value in $breakpoints {
+    @media (max-width: $value) {
+      &::after {
+        content: "#{$name} | max #{$value}";
       }
     }
   }

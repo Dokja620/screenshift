@@ -1,3 +1,5 @@
+@use "./just-vars" as *;
+
 // uses Desktop first approach
 $breakpoints: (
   "desktop-xl": 1536px,
@@ -17,4 +19,14 @@ $max-widths: (
   "small-tablet": 640px,
   "mobile-lg": 475px,
   "mobile": 100%,
+);
+
+$spaces: (
+  "desktop-xl": $spacing-lg,
+  "desktop-lg": $spacing-lg,
+  "desktop": $spacing-lg,
+  "tablet": $spacing-lg,
+  "small-tablet": $spacing-lg,
+  "mobile-lg": $spacing-lg,
+  "mobile": $spacing,
 );
