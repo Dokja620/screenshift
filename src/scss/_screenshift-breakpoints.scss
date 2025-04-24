@@ -1,0 +1,20 @@
+// uses Desktop first approach
+$breakpoints: (
+  "desktop-xl": 1536px,
+  "desktop-lg": 1325px,
+  "desktop": 1280px,
+  "tablet": 1024px,
+  "small-tablet": 768px,
+  "mobile-lg": 640px,
+  "mobile": 475px,
+);
+
+$max-widths: (
+  "desktop-xl": 1325px,
+  "desktop-lg": 1280px,
+  "desktop": 1024px,
+  "tablet": 768px,
+  "small-tablet": 640px,
+  "mobile-lg": 475px,
+  "mobile": 100%,
+);
