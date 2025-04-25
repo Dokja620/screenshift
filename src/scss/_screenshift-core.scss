@@ -3,7 +3,7 @@
 @use "./screenshift-breakpoints" as *;
 @use "./just-vars" as *;
 
-//
+// Base container for screenshift
 [data-screenshift] {
   width: 100%;
   margin-left: auto;
@@ -27,7 +27,7 @@
     }
   }
 }
-
+// Debugging screenshift
 [data-screenshift="debug"] {
   position: relative;
   outline: 2px dashed color-mix(in srgb, red, transparent 50%);
@@ -55,11 +55,18 @@
   @each $name, $value in $breakpoints {
     @media (max-width: $value) {
       &::after {
-        content: "$#{$name}";
+        content: "var(--screenshift-#{$name})";
       }
       &::before {
         content: "max-width : #{$value}";
       }
     }
+  }
+}
+
+// Extracting breakpoint values for easy access
+:root {
+  @each $name, $value in $breakpoints {
+    --screenshift-#{$name}: $value;
   }
 }
