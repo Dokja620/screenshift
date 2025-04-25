@@ -1,0 +1,24 @@
+@use "sass:map";
+@use "./screenshift-breakpoints" as *;
+
+// uses Desktop first approach
+@mixin max-mq($name) {
+  @if map.has-key($breakpoints, $name) {
+    @media (max-width: map.get($breakpoints, $name)) {
+      @content;
+    }
+  } @else {
+    @warn "No breakpoint found for #{$name}.";
+  }
+}
+
+//uses Mobile first approach
+@mixin min-mq($name) {
+  @if map.has-key($breakpoints, $name) {
+    @media (min-width: map.get($breakpoints, $name)) {
+      @content;
+    }
+  } @else {
+    @warn "No breakpoint found for #{$name}.";
+  }
+}

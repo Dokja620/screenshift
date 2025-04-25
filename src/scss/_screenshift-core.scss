@@ -1,7 +1,10 @@
 @use "sass:map";
-
+// using this for breakpoints
 @use "./screenshift-breakpoints" as *;
+// using this for padding
 @use "./just-vars" as *;
+// expose mixins
+@forward "./screenshift-media-query";
 
 // Base container for screenshift
 [data-screenshift] {
@@ -55,7 +58,7 @@
   @each $name, $value in $breakpoints {
     @media (max-width: $value) {
       &::after {
-        content: "var(--screenshift-#{$name})";
+        content: "#{$name}";
       }
       &::before {
         content: "max-width : #{$value}";
