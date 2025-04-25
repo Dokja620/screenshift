@@ -63,10 +63,3 @@
     }
   }
 }
-
-// Extracting breakpoint values for easy access
-:root {
-  @each $name, $value in $breakpoints {
-    --screenshift-#{$name}: $value;
-  }
-}
