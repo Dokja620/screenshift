@@ -1,153 +1,136 @@
-# Screenshift 📱 💻 🖥️
+# Screenshift 📱💻🖥️
 
-[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
-
-A lightweight, framework-agnostic SCSS utility that provides responsive breakpoints and a pure CSS debug overlay to visualize the current breakpoint.
+A lightweight SCSS library for responsive container management with predefined breakpoints, media query helpers, and a built-in debug overlay for visualizing breakpoints.
 
 ## 🌟 Features
 
-- 🚀 Lightweight and framework-agnostic
-- 📐 Predefined, customizable responsive breakpoints
-- 🔍 Pure CSS debug overlay
-- 🛠️ Easy configuration and integration
-- 💻 Works with modern web projects
+- 📐 Responsive container behavior with a single attribute
+- 🔧 Predefined breakpoints for mobile-first or desktop-first workflows
+- 🐞 Debug mode for visualizing current screen size
+- ⚡ Easy integration with any SCSS-based project
 
 ## 📦 Installation
 
-Choose your preferred package manager:
+Pick your preferred method:
 
 ```bash
-# Bun
-bun add screenshift
-
 # npm
-npm install screenshift
+npm install screenshift --save
 
-# pnpm
-pnpm add screenshift
-
-# Yarn
-yarn add screenshift
 ```
 
-## 🔧 Breakpoints
+Or simply download the source and drop it into your SCSS directory.
 
-Screenshift provides a comprehensive set of responsive breakpoints:
+## 🔧 Setup
 
-| Breakpoint | Min Width | Max Width | Label                    | Container Max Width |
-| ---------- | --------- | --------- | ------------------------ | ------------------- |
-| xs         | 0px       | 475px     | XS Mobile                | 100%                |
-| sm         | 476px     | 640px     | SM Small Mobile          | 475px               |
-| md         | 641px     | 768px     | MD Mobile Landscape      | 640px               |
-| lg         | 769px     | 1024px    | LG Tablet                | 768px               |
-| xl         | 1025px    | 1280px    | XL Small Desktop         | 1024px              |
-| xl2        | 1281px    | 1325px    | XL2 Medium Desktop       | 1200px              |
-| xxl        | 1326px    | 1536px    | XXL Large Desktop        | 1280px              |
-| xxxl       | 1537px    | ∞         | XXXL Extra Large Desktop | 90%                 |
-
-## 💡 Usage
-
-### 1. Apply ScreenShift
-
-#### Global Styles
+Import Screenshift into your main SCSS file:
 
 ```scss
-// global.scss or main.scss or app.scss
-// paste on top
 @use "screenshift/scss";
 ```
 
-Then just add `screenshift` attribute to where you want to apply it :
+## 💡 Usage
+
+### 1. Responsive Container
+
+Add `data-screenshift` to any container element to apply responsive defaults:
 
 ```html
-<!-- Globally -->
-<body screenshift>
-  <!-- Your site content -->
-</body>
-
-<!-- Or only for a specific section -->
-<section id="featured" screenshift>
-  <h1>My Content</h1>
-</section>
+<div data-screenshift>
+  <!-- Your content -->
+</div>
 ```
 
-### 2. Debug mode
+This will:
 
-To show the debug overlay just add `="debug"` to `screenshift` :
+- Set container width to 100%
+- Center content using auto margins
+- Apply responsive max-width based on screen size
+- Add contextual padding at each breakpoint
 
-```html
-<!-- Global debug overlay -->
-<body screenshift="debug">
-  <!-- Your site content -->
-</body>
+### 2. Media Query Helpers
 
-<!-- Or show only for a specific section -->
-<section id="featured" screenshift="debug">
-  <h1>My Content</h1>
-</section>
-```
+Screenshift offers both mobile-first and desktop-first mixins:
 
-### 3. Import and Use in SCSS
-
-#### Responsive Media Queries
+#### 🖥️ Desktop-First (max-width)
 
 ```scss
-@use "../shared";
-@use "screenshift/scss" as *;
-
-// Responsive styles for #featured element
-@media (min-width: $screenshift-xxxl) {
-  #featured {
-    background: red;
-  }
+@include max-mq("tablet") {
+  // Styles for ≤ 1024px
 }
 
-@media (min-width: $screenshift-md) {
-  #featured {
+@include max-mq("mobile-lg") {
+  // Styles for ≤ 640px
+}
+```
+
+#### 📱 Mobile-First (min-width)
+
+```scss
+@include min-mq("desktop") {
+  // Styles for ≥ 1280px
+}
+
+@include min-mq("tablet") {
+  // Styles for ≥ 1024px
+}
+```
+
+### 3. Debug Mode 🔍
+
+Use `data-screenshift="debug"` to display a visual overlay with:
+
+- Current breakpoint label (e.g., mobile, tablet)
+- Applied max-width
+- Red dashed outline for easy identification
+
+```html
+<div data-screenshift="debug">
+  <!-- Debug container -->
+</div>
+```
+
+To disable, simply remove the "debug":
+
+```html
+<div data-screenshift>
+  <!-- Clean version -->
+</div>
+```
+
+## 📏 Breakpoints
+
+| Name         | Width  |
+| ------------ | ------ |
+| desktop-xl   | 1536px |
+| desktop-lg   | 1325px |
+| desktop      | 1280px |
+| tablet       | 1024px |
+| small-tablet | 768px  |
+| mobile-lg    | 640px  |
+| mobile       | 475px  |
+
+## 🧩 Example
+
+```scss
+.my-component {
+  display: flex;
+  flex-direction: row;
+
+  @include max-mq("tablet") {
+    flex-direction: column;
+  }
+
+  @include max-mq("mobile-lg") {
+    background: blue;
+  }
+
+  @include max-mq("mobile") {
     background: yellow;
   }
 }
-
-#featured {
-  background: purple;
-}
 ```
-
-## 🎨 Media Query Helpers
-
-Use predefined SCSS variables for responsive design:
-
-```scss
-@use "screenshift/scss" as *;
-
-.responsive-component {
-  @media (max-width: $screenshift-md) {
-    // Styles for medium and smaller screens
-    display: block;
-  }
-
-  @media (min-width: $screenshift-lg) {
-    // Styles for large and larger screens
-    display: flex;
-  }
-}
-```
-
-## 🛠️ Configuration Options
-
-- Customize spacing: `$screenshift-spacing-*`
-- Change debug color: `$screenshift-debug-color`
 
 ## 🤝 Contributing
 
-Contributions are welcome! Please feel free to submit a Pull Request.
-
-## 📄 License
-
-MIT License
-
-## 🚀 Compatibility
-
-- SCSS
-- Modern browsers
-- Works with any framework (React, Vue, Angular, etc.)
+Pull requests and feedback are warmly welcome. Let's build this together!
